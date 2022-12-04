@@ -2,10 +2,15 @@
 
 namespace App\Controllers;
 
+use \App\Models\TaskModel;
+
 class Tasks extends BaseController
 {
     public function index()
     {
-        return view('Tasks/index');
+        $model = new TaskModel;
+        $data = $model->findAll();
+
+        return view('Tasks/index', ['tasks' => $data]);
     }
 }

@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <h1>Layout File</h1>
     <?= $this->renderSection('content') ?>
 </body>
 
