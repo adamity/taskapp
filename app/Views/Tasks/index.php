@@ -5,11 +5,14 @@
 <?= $this->section('content') ?>
     <h1>Tasks</h1>
 
+    <a href="<?= site_url('/tasks/new') ?>">New Task</a>
+
     <ul>
         <?php foreach ($tasks as $task) : ?>
             <li>
-                <?= $task['id'] ?>
-                <?= $task['description'] ?>
+                <a href="<?= site_url('/tasks/show/' . $task['id']) ?>">
+                    <?= esc($task['description']) ?>
+                </a>
             </li>
         <?php endforeach ?>
     </ul>
