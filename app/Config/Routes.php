@@ -40,6 +40,9 @@ $routes->get('/tasks', 'Tasks::index');
 $routes->get('/tasks/new', 'Tasks::new');
 $routes->post('/tasks/create', 'Tasks::create');
 $routes->get('/tasks/show/(:num)', 'Tasks::show/$1');
+$routes->get('/tasks/edit/(:num)', 'Tasks::edit/$1');
+$routes->post('/tasks/update/(:num)', 'Tasks::update/$1');
+$routes->match(['get', 'post'], '/tasks/delete/(:num)', 'Tasks::delete/$1');
 $routes->get('/migrate', 'Migrate::index');
 
 /*
