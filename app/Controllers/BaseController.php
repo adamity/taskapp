@@ -37,6 +37,7 @@ abstract class BaseController extends Controller
      */
     protected $helpers = [
         "form",
+        "auth"
     ];
 
     /**

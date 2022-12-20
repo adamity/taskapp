@@ -39,6 +39,12 @@ $routes->get('/', 'Home::index');
 $routes->get('/signup', 'Signup::new');
 $routes->post('/signup/create', 'Signup::create');
 $routes->get('/signup/success', 'Signup::success');
+
+$routes->get('/login', 'Login::new');
+$routes->post('/login/create', 'Login::create');
+$routes->get('/logout', 'Login::delete');
+$routes->get('/logout/showLogoutMessage', 'Login::showLogoutMessage');
+
 $routes->get('/tasks', 'Tasks::index');
 $routes->get('/tasks/new', 'Tasks::new');
 $routes->post('/tasks/create', 'Tasks::create');
