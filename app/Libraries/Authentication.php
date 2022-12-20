@@ -30,7 +30,7 @@ class Authentication
 
     public function getCurrentUser()
     {
-        if (!session()->has('user_id')) return null;
+        if (!$this->isLoggedIn()) return null;
 
         if (!$this->user) {
             $model = new UserModel;
@@ -38,5 +38,10 @@ class Authentication
         }
 
         return $this->user;
+    }
+
+    public function isLoggedIn()
+    {
+        return session()->has('user_id');
     }
 }
