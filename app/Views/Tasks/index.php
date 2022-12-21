@@ -7,13 +7,19 @@
 
     <a href="<?= site_url('/tasks/new') ?>">New Task</a>
 
-    <ul>
-        <?php foreach ($tasks as $task) : ?>
-            <li>
-                <a href="<?= site_url("/tasks/show/$task->id") ?>">
-                    <?= esc($task->description) ?>
-                </a>
-            </li>
-        <?php endforeach ?>
-    </ul>
+    <?php if ($tasks): ?>
+        <ul>
+            <?php foreach ($tasks as $task) : ?>
+                <li>
+                    <a href="<?= site_url("/tasks/show/$task->id") ?>">
+                        <?= esc($task->description) ?>
+                    </a>
+                </li>
+            <?php endforeach ?>
+        </ul>
+
+        <?= $pager->links() ?>
+    <?php else: ?>
+        <p>No task found.</p>
+    <?php endif ?>
 <?= $this->endSection() ?>

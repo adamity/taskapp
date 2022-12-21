@@ -8,16 +8,21 @@ use \App\Entities\TaskEntity;
 class Tasks extends BaseController
 {
     private $model;
+    private $current_user;
 
     public function __construct()
     {
         $this->model = new TaskModel;
+        $this->current_user = service('auth')->getCurrentUser();
     }
 
     public function index()
     {
-        $task = $this->model->findAll();
-        return view('Tasks/index', ['tasks' => $task]);
+        $task = $this->model->paginateTasksByUserId($this->current_user->id);
+        return view('Tasks/index', [
+            'tasks' => $task,
+            'pager' => $this->model->pager,
+        ]);
     }
 
     public function show($id)
@@ -40,7 +45,11 @@ class Tasks extends BaseController
     public function update($id)
     {
         $task = $this->getTaskOr404($id);
-        $task->fill($this->request->getPost());
+
+        $post = $this->request->getPost();
+        unset($post['user_id']);
+
+        $task->fill($post);
 
         if (!$task->hasChanged()) {
             return redirect()->back()
@@ -63,6 +72,7 @@ class Tasks extends BaseController
     public function create()
     {
         $task = new TaskEntity($this->request->getPost());
+        $task->user_id = $this->current_user->id;
 
         if ($this->model->insert($task)) {
             return redirect()->to('/tasks/show/' . $this->model->insertID)
@@ -91,7 +101,7 @@ class Tasks extends BaseController
 
     public function getTaskOr404($id)
     {
-        $task = $this->model->find($id);
+        $task = $this->model->getTaskByUserId($id, $this->current_user->id);
 
         if (!$task) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Task with id $id not found");
