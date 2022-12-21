@@ -52,6 +52,14 @@ $routes->get('/tasks/show/(:num)', 'Tasks::show/$1');
 $routes->get('/tasks/edit/(:num)', 'Tasks::edit/$1');
 $routes->post('/tasks/update/(:num)', 'Tasks::update/$1');
 $routes->match(['get', 'post'], '/tasks/delete/(:num)', 'Tasks::delete/$1');
+
+$routes->get('/admin/users/new', 'Admin\Users::new');
+$routes->post('/admin/users/create', 'Admin\Users::create');
+$routes->get('/admin/users/edit/(:num)', 'Admin\Users::edit/$1');
+$routes->post('/admin/users/update/(:num)', 'Admin\Users::update/$1');
+$routes->get('/admin/users', 'Admin\Users::index');
+$routes->get('/admin/users/show/(:num)', 'Admin\Users::show/$1');
+$routes->match(['get', 'post'], '/admin/users/delete/(:num)', 'Admin\Users::delete/$1');
 $routes->get('/migrate', 'Migrate::index');
 
 /*
