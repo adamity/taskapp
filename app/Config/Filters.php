@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\AdminFilter;
 use App\Filters\GuestFilter;
 use App\Filters\LoginFilter;
 use CodeIgniter\Config\BaseConfig;
@@ -27,6 +28,7 @@ class Filters extends BaseConfig
         'secureheaders' => SecureHeaders::class,
         'login'         => LoginFilter::class,
         'guest'         => GuestFilter::class,
+        'admin'         => AdminFilter::class
     ];
 
     /**
@@ -73,6 +75,16 @@ class Filters extends BaseConfig
      * @var array
      */
     public $filters = [
-        'login' => ['before' => ['tasks(/*)?']],
+        'login' => [
+            'before' => [
+                'tasks(/*)?',
+                'admin(/*)?'
+            ]
+        ],
+        'admin' => [
+            'before' => [
+                'admin(/*)?'
+            ]
+        ],
     ];
 }

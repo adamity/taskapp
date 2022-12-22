@@ -51,7 +51,7 @@ class Users extends BaseController
     {
         $user = new UserEntity($this->request->getPost());
 
-        if ($this->model->insert($user)) {
+        if ($this->model->protect(false)->insert($user)) {
             return redirect()->to('/admin/users/show/' . $this->model->insertID)
                 ->with('info', 'User created successfully');
         } else {
@@ -88,7 +88,7 @@ class Users extends BaseController
                 ->withInput();
         }
 
-        if ($this->model->save($user)) {
+        if ($this->model->protect(false)->save($user)) {
             return redirect()->to("/admin/users/show/$id")
                 ->with('info', 'User updated successfully');
         } else {
