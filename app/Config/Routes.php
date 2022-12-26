@@ -39,6 +39,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/signup', 'Signup::new', ['filter' => 'guest']);
 $routes->post('/signup/create', 'Signup::create');
 $routes->get('/signup/success', 'Signup::success');
+$routes->get('/signup/activate/(:alphanum)', 'Signup::activate/$1');
 
 $routes->get('/login', 'Login::new', ['filter' => 'guest']);
 $routes->post('/login/create', 'Login::create');
@@ -61,6 +62,8 @@ $routes->get('/admin/users', 'Admin\Users::index');
 $routes->get('/admin/users/show/(:num)', 'Admin\Users::show/$1');
 $routes->match(['get', 'post'], '/admin/users/delete/(:num)', 'Admin\Users::delete/$1');
 $routes->get('/migrate', 'Migrate::index');
+
+$routes->get('/test/email', 'Home::testEmail');
 
 /*
  * --------------------------------------------------------------------

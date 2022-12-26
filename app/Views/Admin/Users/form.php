@@ -22,6 +22,17 @@
 </div>
 
 <div>
+    <label for="is_active">
+        <?php if ($user->id == current_user()->id): ?>
+            <input type="checkbox" value="1" checked disabled> active
+        <?php else: ?>
+            <input type="hidden" name="is_active" value="0">
+            <input type="checkbox" id="is_active" name="is_active" value="1" <?php if (old('is_active', $user->is_active)): ?> checked <?php endif ?>> active
+        <?php endif ?>
+    </label>
+</div>
+
+<div>
     <label for="is_admin">
         <?php if ($user->id == current_user()->id): ?>
             <input type="checkbox" value="1" checked disabled> administrator

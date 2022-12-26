@@ -15,6 +15,7 @@ class Authentication
 
         if (!$user) return false;
         if (!$user->verifyPassword($password)) return false;
+        if (!$user->is_active) return false;
 
         $session = session();
         $session->regenerate();
@@ -30,11 +31,15 @@ class Authentication
 
     public function getCurrentUser()
     {
-        if (!$this->isLoggedIn()) return null;
+        if (!session()->has('user_id')) return null;
 
         if (!$this->user) {
             $model = new UserModel;
-            $this->user = $model->find(session()->get('user_id'));
+            $user = $model->find(session()->get('user_id'));
+
+            if ($user && $user->is_active) {
+                $this->user = $user;
+            }
         }
 
         return $this->user;
@@ -42,6 +47,6 @@ class Authentication
 
     public function isLoggedIn()
     {
-        return session()->has('user_id');
+        return $this->getCurrentUser() !== null;
     }
 }
